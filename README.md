@@ -17,7 +17,13 @@ Then use it like so:
         array(":myvalue"=>$myvalue));
     $results = $DB->fetchAll();
 
-You now have all of the results in your `$results` variable.
+You now have all of the results in your `$results` variable. You can
+now iterate through the results like so:
+
+    foreach($results as $result) {
+    	// $result contains an associative array with all the fields
+    	echo "Result: ".$result['myfield']
+    }
 
 ## Setup
 
