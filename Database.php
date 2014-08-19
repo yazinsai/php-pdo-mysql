@@ -19,20 +19,22 @@ class Database{
 	const FORMAT_SQLDATETIME="Y-m-d H:i:s"; // The date('format') used for storing dates in MySQL
     
     # Attributes
-    protected $_connection;
+    protected $_connection = false;
     protected $_statement;
 
     # Methods
     public function __construct() {
+        global $CONFIG;
         /* 
          * Constructor establishes the connection with the MySQL database
          */
         $this->_connection = new PDO("mysql:host=".$CONFIG["database"]["host"].";dbname=".$CONFIG["database"]["database"],
-                $CONFIG["database"]["username"],$CONFIG["database"]["password"], array(
+                $CONFIG["database"]["username"],$CONFIG["database"]["password"],
+             array(
                     PDO::ATTR_PERSISTENT=>true,
-                    PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION
-                        ));
-        $this->query("SET NAMES 'utf8';SET CHARACTER SET utf8;");
+                    PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,
+                    PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8';SET CHARACTER SET utf8;"
+             ));
     }
 
     public function __destruct() {
@@ -40,7 +42,7 @@ class Database{
          * Destructor closes the connection with teh MySQL database by clearing
          * the connection
          */
-        if($this->_connection) {
+        if($this->_connection != false) {
             $this->_connection=null;
         }
     }
@@ -64,7 +66,6 @@ class Database{
         else {
             // The connection is not ready; error out
             throw new Exception("The database connection is not alive. Can't execute query();");
-            return false;
         }
     }
 
@@ -82,11 +83,9 @@ class Database{
                 return $this->_statement->fetch(PDO::FETCH_NUM);
             else if($aType == 'assoc')
                 return $this->_statement->fetch(PDO::FETCH_ASSOC);
-        }
-        else {
+        } else {
             // Looks like the query() method was not called before; raise error
             throw new Exception("The query() method must be called before using fetch();");
-            return false;
         }
     }
 
@@ -106,11 +105,9 @@ class Database{
                 return $this->_statement->fetchAll(PDO::FETCH_NUM);
             else if($aType == 'assoc')
                 return $this->_statement->fetchAll(PDO::FETCH_ASSOC);    
-        }
-        else {
+        } else {
             // Looks like the query() method was not called before; raise error
             throw new Exception("The query() method must be called before using fetchAll();");
-            return false;
         }
     }
     
@@ -163,4 +160,3 @@ class Database{
         echo "db[$index]={$rowdetails['Type']};<br/>";
  * 
  */
-?>
