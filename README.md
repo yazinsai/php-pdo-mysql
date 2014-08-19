@@ -1,28 +1,26 @@
 PHP PDO MySQL Wrapper
 =====================
 
-This PHP Class makes it ridiculously easy to use Prepared Statements
-in your MySQL projects.
+This PHP Class makes it *ridiculously easy* to use Prepared Statements in your MySQL projects.
 
 ## How does it work?
 
-Just start by `include`ing the class into your document:
+Just start by including the class in your script:
 
     include Database.php
 
-Then use it like so:
+Now use it like so:
 
     $DB = new Database();
     $DB->query("SELECT * FROM `mytable` WHERE `myfield`=:myvalue",
-        array(":myvalue"=>$myvalue));
+        array(":myvalue" => $myvalue));
     $results = $DB->fetchAll();
 
-You now have all of the results in your `$results` variable. You can
-now iterate through the results like so:
+You now have all of the results in your `$results` variable! You can iterate through the results like so:
 
     foreach($results as $result) {
     	// $result contains an associative array with all the fields
-    	echo "Result: ".$result['myfield']
+    	echo "Result: " . $result['myfield']
     }
 
 ## Setup
@@ -32,8 +30,8 @@ connection details:
 
     $CONFIG = array(
     	"database" => array(
-			"host"=> 'localhost',
-			"database" => 'DB_NAME',
+			"host"     => 'localhost',
+			"database" => 'database',
 			"username" => 'username',
 			"password" => 'password'
 			)
@@ -41,4 +39,4 @@ connection details:
 
 ## Why use this class?
 
-Coz it makes yo' life a whole lot easier.
+Coz it makes yo' life a whole lot easier. And prepared statements are about 1,000,000 times more secure than plain SQL.
