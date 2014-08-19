@@ -15,7 +15,7 @@ Now use it like so:
 ```php
 $DB = new Database();
 $DB->query("SELECT * FROM `mytable` WHERE `myfield`=:myvalue",
-array(":myvalue" => $myvalue));
+   array(":myvalue" => $myvalue));
 $results = $DB->fetchAll();
 ```
 
@@ -23,8 +23,8 @@ You now have all of the results in your `$results` variable! You can iterate thr
 
 ```php
 foreach($results as $result) {
-    // $result contains an associative array with all the fields
-    echo "Result: " . $result['myfield']
+   // $result contains an associative array with all the fields
+   echo "Result: " . $result['myfield']
 }
 ```
 
@@ -35,13 +35,13 @@ connection details:
 
 ```php
 $CONFIG = array(
-    "database" => array(
-		"host"     => 'localhost',
-		"database" => 'database',
-		"username" => 'username',
-		"password" => 'password'
-		)
-	);
+  "database" => array(
+    "host"     => 'localhost',
+    "database" => 'database',
+    "username" => 'username',
+    "password" => 'password'
+    )
+  );
 ```
 
 ## Why use this class?
